@@ -1,50 +1,284 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+// This is a static HTML coming soon page for Varfis Paints
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varfis Paints – Coming Soon</title>
+  <meta name="description" content="George Varfis – Professional Painting & Insulation, Greece. Website coming soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:     #D4AF37;
+      --gold-lt:  #F0D060;
+      --bg:       #000000;
+      --panel:    #111111;
+      --border:   #222222;
+      --text:     #F5F5F5;
+      --muted:    #666666;
+      --tape-alt: #000000;
+    }
+
+    body.light {
+      --bg:       #F8F6F0;
+      --panel:    #FFFFFF;
+      --border:   #E0D9CC;
+      --text:     #1A1A1A;
+      --muted:    #888888;
+      --tape-alt: #F8F6F0;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+      transition: background .35s, color .35s;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 100;
+    }
+
+    .glow {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse at center, rgba(212,175,55,.10) 0%, rgba(212,175,55,.03) 40%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:.7; transform:translate(-50%,-50%) scale(1); }
+      50%      { opacity:1;  transform:translate(-50%,-50%) scale(1.08); }
+    }
+
+    .tape { position:fixed; left:0; right:0; height:36px; overflow:hidden; z-index:10; }
+    .tape.top    { top:0; }
+    .tape.bottom { bottom:0; }
+    .tape-inner {
+      width:200%; height:100%;
+      background: repeating-linear-gradient(-45deg, var(--gold) 0px, var(--gold) 18px, var(--tape-alt) 18px, var(--tape-alt) 36px);
+      animation: scroll-tape 20s linear infinite;
+      transition: background .35s;
+    }
+    .tape.bottom .tape-inner { animation-direction: reverse; }
+    @keyframes scroll-tape { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── Toggles ── */
+    .toggles {
+      position: fixed; top: 52px; right: 16px;
+      z-index: 200; display: flex; gap: 8px;
+    }
+    .toggle-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .7rem; font-weight: 600; letter-spacing: .08em;
+      color: var(--text); cursor: pointer;
+      transition: background .2s, border-color .2s, color .35s, transform .15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .toggle-btn:hover { border-color: var(--gold); transform: scale(1.04); }
+    .toggle-btn .dot { width:7px; height:7px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+
+    /* ── Stage ── */
+    .stage {
+      position: fixed; inset: 36px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 20px 24px;
+    }
+
+    .logo {
+      width:64px; height:64px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border-radius:18px; display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; color:#000;
+      margin-bottom:28px; box-shadow:0 0 40px rgba(212,175,55,.3);
+      animation: logo-in .8s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes logo-in { from{opacity:0;transform:scale(.6) rotate(-8deg)} to{opacity:1;transform:scale(1) rotate(0)} }
+
+    .eyebrow {
+      font-size:.68rem; font-weight:500; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:16px;
+      animation: fade-up .7s .2s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .headline {
+      font-family:'Playfair Display',serif;
+      font-size: clamp(2.2rem,9vw,4.2rem); font-weight:900; line-height:1.05;
+      color:var(--text); margin-bottom:8px;
+      animation: fade-up .7s .32s cubic-bezier(.16,1,.3,1) both;
+      transition: color .35s;
+    }
+    .headline em {
+      font-style:italic;
+      background:linear-gradient(135deg,var(--gold),var(--gold-lt));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+
+    .divider {
+      width:60px; height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      margin:22px auto;
+      animation: fade-up .7s .44s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .sub {
+      font-size:clamp(.85rem,3vw,1rem); color:var(--muted);
+      max-width:360px; line-height:1.7; margin-bottom:32px;
+      animation: fade-up .7s .52s cubic-bezier(.16,1,.3,1) both;
+      transition: color .35s;
+    }
+    .sub strong { color:var(--gold); font-weight:600; }
+
+    .contacts {
+      display:flex; flex-direction:column; align-items:center;
+      gap:7px; width:100%; max-width:300px;
+      animation: fade-up .7s .64s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .contact-pill {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      background:var(--panel); border:1px solid var(--border);
+      border-radius:50px; padding:9px 18px;
+      text-decoration:none; color:var(--text);
+      font-size:.88rem; font-weight:500; width:100%;
+      transition: border-color .2s, background .2s, transform .2s, color .35s;
+    }
+    .contact-pill:hover { border-color:rgba(212,175,55,.5); background:rgba(212,175,55,.08); transform:translateY(-2px); }
+
+    .contact-pill .icon {
+      width:26px; height:26px; border-radius:50%;
+      background:rgba(212,175,55,.15);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; flex-shrink:0;
+    }
+    .pill-label { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; display:block; line-height:1; margin-bottom:1px; transition:color .35s; }
+    .pill-value { font-size:.85rem; color:var(--text); line-height:1; transition:color .35s; }
+
+    .brush-left, .brush-right { position:fixed; top:50%; opacity:.04; pointer-events:none; }
+    .brush-left  { left:-40px; transform:translateY(-50%); }
+    .brush-right { right:-40px; transform:translateY(-50%) scaleX(-1); }
+
+    @keyframes fade-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── Language system ── */
+    [data-lang]       { display:none; }
+    [data-lang-block] { display:none; }
+    .lang-en [data-lang="en"]       { display:inline; }
+    .lang-gr [data-lang="gr"]       { display:inline; }
+    .lang-en [data-lang-block="en"] { display:block; }
+    .lang-gr [data-lang-block="gr"] { display:block; }
+  </style>
+</head>
+<body class="lang-en">
+
+  <div class="tape top"><div class="tape-inner"></div></div>
+  <div class="tape bottom"><div class="tape-inner"></div></div>
+  <div class="glow"></div>
+
+  <!-- Toggles -->
+  <div class="toggles">
+    <button class="toggle-btn" onclick="toggleLang()">
+      <span class="dot"></span>
+      <span id="langLabel">🇬🇷 ΕΛ</span>
+    </button>
+    <button class="toggle-btn" onclick="toggleTheme()">
+      <span class="dot"></span>
+      <span id="themeLabel">☀️ Light</span>
+    </button>
+  </div>
+
+  <!-- Brush decorations -->
+  <svg class="brush-left" width="120" height="400" viewBox="0 0 120 400" fill="none">
+    <path d="M100 10 Q20 100 60 200 Q100 300 40 390" stroke="currentColor" stroke-width="40" stroke-linecap="round" fill="none"/>
+  </svg>
+  <svg class="brush-right" width="120" height="400" viewBox="0 0 120 400" fill="none">
+    <path d="M100 10 Q20 100 60 200 Q100 300 40 390" stroke="currentColor" stroke-width="40" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <div class="stage">
+
+    <div class="logo">V</div>
+
+    <p class="eyebrow">
+      <span data-lang="en">George Varfis · Painting &amp; Insulation · Greece</span>
+      <span data-lang="gr">Γιώργης Βαρφής · Χρωματισμοί &amp; Μόνωση · Ελλάδα</span>
+    </p>
+
+    <h1 class="headline">
+      <span data-lang-block="en">Something<br><em>Beautiful</em><br>Is Coming</span>
+      <span data-lang-block="gr">Κάτι<br><em>Υπέροχο</em><br>Έρχεται</span>
+    </h1>
+
+    <div class="divider"></div>
+
+    <p class="sub">
+      <span data-lang-block="en">Our website is under construction.<br>In the meantime, reach out directly for a <strong>free quote</strong> on your project.</span>
+      <span data-lang-block="gr">Ο ιστότοπός μας είναι υπό κατασκευή.<br>Επικοινωνήστε μαζί μας για <strong>δωρεάν εκτίμηση</strong> του έργου σας.</span>
+    </p>
+
+    <div class="contacts">
+      <a href="https://wa.me/306987162796" target="_blank" class="contact-pill">
+        <div class="icon">�</div>
+        <div>
+          <span class="pill-label">
+            <span data-lang="en">WhatsApp</span>
+            <span data-lang="gr">WhatsApp</span>
+          </span>
+          <span class="pill-value">+30 698 716 2796</span>
+        </div>
+      </a>
+      <a href="viber://chat?number=+306987162796" class="contact-pill">
+        <div class="icon">📱</div>
+        <div>
+          <span class="pill-label">Viber</span>
+          <span class="pill-value">+30 698 716 2796</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <script is:inline>
+    let currentLang = 'en';
+
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      document.getElementById('themeLabel').textContent = isLight ? '🌙 Dark' : '☀️ Light';
+    }
+
+    function toggleLang() {
+      const body = document.body;
+      if (currentLang === 'en') {
+        body.classList.replace('lang-en', 'lang-gr');
+        currentLang = 'gr';
+        document.getElementById('langLabel').textContent = '🇬🇧 EN';
+        document.documentElement.lang = 'el';
+      } else {
+        body.classList.replace('lang-gr', 'lang-en');
+        currentLang = 'en';
+        document.getElementById('langLabel').textContent = '🇬🇷 ΕΛ';
+        document.documentElement.lang = 'en';
+      }
+    }
+  </script>
+</body>
 </html>
